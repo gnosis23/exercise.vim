@@ -25,7 +25,15 @@ function! s:LoadLinks()
     if filereadable(s:config_path)
         let l:lines = readfile(s:config_path)
         if len(l:lines) >= 1
-            let g:MyGlobalLinks = json_decode(l:lines[0])
+            try
+                let g:MyGlobalLinks = json_decode(l:lines[0])
+                if type(g:MyGlobalLinks) != v:t_list
+                    let g:MyGlobalLinks = []
+                endif
+            catch
+                echom "Error parsing " . s:config_path 
+                let g:MyGlobalLinks = []
+            endtry
         endif
     else
         let g:MyGlobalLinks = []
@@ -64,8 +72,15 @@ function! ListMyLinks()
         return
     endif
 
-    " Open a buffer
-    execute 'split ' . s:buffer_name
+    let l:bufnr = bufnr(s:buffer_name)
+    let l:winid = bufwinid(l:bufnr)
+
+    if l:winid != -1
+        call win_gotoid(l:winid)
+    else
+        " Open a buffer
+        execute 'split ' . s:buffer_name
+    endif
 
     call s:RenderLinksBuffer()
 endfunction
@@ -74,13 +89,15 @@ function! DeleteLink()
     let l:line_no = line('.')
     if l:line_no >= s:link_offset 
         let l:i = l:line_no - s:link_offset
-        echom "Remove " . l:i
+        echom "Remove link: " . g:MyGlobalLinks[l:i]
+
+        call remove(g:MyGlobalLinks, l:i)
+        call s:SaveLinksToFile()
+
         set modifiable
         let l:buf = bufnr(s:buffer_name)
         call deletebufline(l:buf, l:line_no)
         set nomodifiable
-        call remove(g:MyGlobalLinks, l:i)
-        call s:SaveLinksToFile()
     endif
 endfunction
 
@@ -88,12 +105,25 @@ function! QuitList()
     execute 'bdelete'
 endfunction
 
+function! s:OpenCommand(url)
+    let l:cmd = ''
+    if has('mac')
+        let l:cmd = 'open ' . a:url
+    elseif has('unix')
+        let l:cmd = 'xdg-open ' . a:url
+    else
+        echom 'Platform not supported for opening links.'
+    endif
+
+    call system(l:cmd)
+endfunction
+
 function! OpenLink()
     let l:line_no = line('.')
     if l:line_no >= s:link_offset
         let l:i = l:line_no - s:link_offset
         " open in browser
-        call system('open ' . shellescape(g:MyGlobalLinks[l:i]))
+        call s:OpenCommand(shellescape(g:MyGlobalLinks[l:i]))
     endif
 endfunction
 
