@@ -53,8 +53,10 @@ function! SaveLinks(...)
     for l:link in l:args
         let l:trimmed = trim(l:link)
         if s:IsValidUrl(l:trimmed)
-            call add(g:MyGlobalLinks, l:trimmed)
-            let saved_count = saved_count + 1
+            if index(g:MyGlobalLinks, l:trimmed) == -1
+                call add(g:MyGlobalLinks, l:trimmed)
+                let saved_count = saved_count + 1
+            endif
         endif
     endfor
 
