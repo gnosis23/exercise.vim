@@ -1,4 +1,6 @@
 // TODO: Clean up this Xunciton.
-local var = 1
-
+int main() {
+    int a = 1;
+    return 0;
+}
 
