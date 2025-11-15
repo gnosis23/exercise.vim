@@ -9,7 +9,7 @@ endif
 let s:config_path = expand('~/.vim/my_config.json')
 
 function! SaveConfig()
-    let l:config_dir = fnamemodify(l:config_path, ':h')
+    let l:config_dir = fnamemodify(s:config_path, ':h')
 
     if !isdirectory(l:config_dir)
         call mkdir(l:config_dir, 'p')
