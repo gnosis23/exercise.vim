@@ -12,4 +12,5 @@
 - [job.vim](./job.vim): job_start example
 - [linksaver.vim](./linksaver.vim): buffers
 - [inputlist.vim](./inputlist.vim): inputlist
+- [quickmenu.vim](./quickmenu.vim): quickfix as list
 
