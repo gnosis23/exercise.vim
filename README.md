@@ -11,4 +11,5 @@
 - [timer.vim](./timer.vim): timer example
 - [job.vim](./job.vim): job_start example
 - [linksaver.vim](./linksaver.vim): buffers
+- [inputlist.vim](./inputlist.vim): inputlist
 
