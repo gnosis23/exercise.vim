@@ -13,4 +13,5 @@
 - [linksaver.vim](./linksaver.vim): buffers
 - [inputlist.vim](./inputlist.vim): inputlist
 - [quickmenu.vim](./quickmenu.vim): quickfix as list
+- [grep.vim](./grep.vim): grep, systemlist(), f-args
 
