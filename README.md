@@ -14,4 +14,5 @@
 - [inputlist.vim](./inputlist.vim): inputlist
 - [quickmenu.vim](./quickmenu.vim): quickfix as list
 - [grep.vim](./grep.vim): grep, systemlist(), f-args
+- [highlight-toggle.vim](./highlight-toggle.vim): toggle highlight
 
