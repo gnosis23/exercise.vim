@@ -1,6 +1,6 @@
 # Vimscript练习
 
-## 练习列表
+## vimscript
 
 - [exercise.vim](./exercise.vim): basic vimscript
 - [log.vim](./log.vim): readfile, writefile
@@ -16,4 +16,8 @@
 - [grep.vim](./grep.vim): grep, systemlist(), f-args
 - [highlight-toggle.vim](./highlight-toggle.vim): toggle highlight
 - [snippets.vim](./snippets.vim): template
+
+## vim9script
+
+- [calc-total.vim](./calc-total.vim): basic
 
