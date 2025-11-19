@@ -5,10 +5,19 @@ function M.append_signature()
 	local buf = 0
 
 	local line_count = vim.api.nvim_buf_line_count(buf)
+	print("line count" .. line_count)
+
+	local quotes = {
+		"Happy Coding!",
+		"Vim is awesome.",
+		"Lua is fast.",
+		"Keep it simple.",
+	}
 
 	local signature_text = {
 		"",
 		"-- Author: Uncle Wang",
+		"-- " .. quotes[math.random(#quotes)],
 		"-- Date:   " .. os.date("%Y-%m-%d %H:%M:%S"),
 		"---------------------",
 	}
