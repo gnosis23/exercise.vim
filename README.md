@@ -21,3 +21,7 @@
 
 - [calc-total.vim](./calc-total.vim): basic
 
+## lua
+
+- [simple-popup](./simple-popup.lua): buffer, window, keymaps
+
