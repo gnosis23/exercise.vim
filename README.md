@@ -24,4 +24,5 @@
 ## lua
 
 - [simple-popup](./simple-popup.lua): buffer, window, keymaps
+- [add-signature](./add-signature.lua): buffer, edit
 
