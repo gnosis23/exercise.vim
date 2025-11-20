@@ -13,14 +13,14 @@ local function ReloadModule(name, callback)
 	end
 end
 
-ReloadModule("simple-popup", function()
+ReloadModule("lua/simple-popup", function()
 	vim.keymap.set("n", "<leader>t", function()
-		require("simple-popup").toggle_window()
+		require("lua/simple-popup").toggle_window()
 	end, { desc = "Toggle Simple Popup" })
 end)
 
-ReloadModule("add-signature", function()
+ReloadModule("lua/add-signature", function()
 	vim.keymap.set("n", "<leader>A", function()
-		require("add-signature").append_signature()
+		require("lua/add-signature").append_signature()
 	end, { desc = "Add Signature" })
 end)
