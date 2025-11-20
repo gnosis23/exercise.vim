@@ -1,33 +1,53 @@
 local M = {}
 
-function M.run_prompt()
-	local user_name = ""
+local function await_input(opts)
+	local result = nil
 
-	vim.ui.input({ prompt = "Your name: ", default = vim.fn.getenv("USER") }, function(input_name)
-		if input_name == nil or input_name == "" then
+	local co = coroutine.running()
+
+	-- 1. start input
+	vim.ui.input(opts, function(input)
+		result = input
+
+		-- 2. 在回调函数中，恢复协程
+		vim.schedule(function()
+			coroutine.resume(co, result)
+		end)
+	end)
+
+	-- 3. 暂停协程，等待输入结果
+	return coroutine.yield()
+end
+
+function M.run_prompt()
+	local co = coroutine.wrap(function()
+		local name = await_input({ prompt = "Your name: ", default = vim.fn.getenv("USER") })
+
+		if name == nil or name == "" then
 			vim.notify("Signature canceled", vim.log.levels.INFO)
 			return
 		end
-		user_name = input_name
 
-		vim.ui.input({ prompt = "Custom Messages: " }, function(input_msg)
-			if input_msg == nil then
-				vim.notify("Signature cancelled.", vim.log.levels.INFO)
-				return
-			end
+		local message = await_input({ prompt = "Custom Message: " })
 
-			local buf = 0
-			local count = vim.api.nvim_buf_line_count(buf)
+		if message == nil or message == "" then
+			vim.notify("Signature cancelled.", vim.log.levels.INFO)
+			return
+		end
 
-			local signature = {
-				"",
-				"--- " .. input_msg,
-				string.format("--- Signed by %s on %s", user_name, os.date("%Y-%m-%d")),
-			}
+		local buf = 0
+		local count = vim.api.nvim_buf_line_count(buf)
 
-			vim.api.nvim_buf_set_lines(buf, count, count, false, signature)
-		end)
+		local signature = {
+			"",
+			"--- " .. message,
+			string.format("--- Signed by %s on %s", name, os.date("%Y-%m-%d")),
+		}
+
+		vim.api.nvim_buf_set_lines(buf, count, count, false, signature)
 	end)
+
+	co()
 end
 
 vim.api.nvim_create_user_command("CustomSign", M.run_prompt, { desc = "Add Custom Sign" })
