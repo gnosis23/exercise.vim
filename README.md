@@ -26,4 +26,5 @@
 - [simple-popup](./lua/simple-popup.lua): buffer, window, keymaps
 - [add-signature](./lua/add-signature.lua): buffer, edit
 - [event-notifier](./lua/event-notifier.lua): autocmd, augroup
+- [interactive-sign](./lua/interactive-sign.lua): input
 

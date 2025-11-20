@@ -28,3 +28,5 @@ end)
 ReloadModule("lua/event-notifier", function()
 	require("lua/event-notifier").setup()
 end)
+
+ReloadModule("lua/interactive-sign")

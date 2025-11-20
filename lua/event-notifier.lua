@@ -13,7 +13,7 @@ function M.setup()
 		end,
 	})
 
-	print("Event Notifier loaded.")
+	-- print("Event Notifier loaded.")
 end
 
 return M
