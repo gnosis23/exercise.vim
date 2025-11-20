@@ -1,16 +1,26 @@
-local function ReloadModule(name)
+local function ReloadModule(name, callback)
 	package.loaded[name] = nil
-	require(name)
-	print("Module '" .. name .. "' reloaded successfully")
+
+	local ok, module = pcall(require, name)
+
+	if ok then
+		if callback then
+			callback()
+		end
+		print("Module '" .. name .. "' reloaded successfully")
+	else
+		vim.notify("Failed to reload module '" .. name .. "'", vim.log.levels.WARN)
+	end
 end
 
-ReloadModule("simple-popup")
-ReloadModule("add-signature")
+ReloadModule("simple-popup", function()
+	vim.keymap.set("n", "<leader>t", function()
+		require("simple-popup").toggle_window()
+	end, { desc = "Toggle Simple Popup" })
+end)
 
-vim.keymap.set("n", "<leader>t", function()
-	require("simple-popup").toggle_window()
-end, { desc = "Toggle Simple Popup" })
-
-vim.keymap.set("n", "<leader>A", function()
-	require("add-signature").append_signature()
-end, { desc = "Add Signature" })
+ReloadModule("add-signature", function()
+	vim.keymap.set("n", "<leader>A", function()
+		require("add-signature").append_signature()
+	end, { desc = "Add Signature" })
+end)
