@@ -14,9 +14,11 @@ local function ReloadModule(name, callback)
 end
 
 ReloadModule("lua/simple-popup", function()
-	vim.keymap.set("n", "<leader>t", function()
-		require("lua/simple-popup").toggle_window()
-	end, { desc = "Toggle Simple Popup" })
+	require("lua/simple-popup").setup({
+		width = 90,
+		height = 5,
+		border = "double",
+	})
 end)
 
 ReloadModule("lua/add-signature", function()
