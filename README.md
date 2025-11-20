@@ -23,6 +23,7 @@
 
 ## lua
 
-- [simple-popup](./simple-popup.lua): buffer, window, keymaps
-- [add-signature](./add-signature.lua): buffer, edit
+- [simple-popup](./lua/simple-popup.lua): buffer, window, keymaps
+- [add-signature](./lua/add-signature.lua): buffer, edit
+- [event-notifier](./lua/event-notifier.lua): autocmd, augroup
 

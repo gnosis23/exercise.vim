@@ -24,3 +24,7 @@ ReloadModule("lua/add-signature", function()
 		require("lua/add-signature").append_signature()
 	end, { desc = "Add Signature" })
 end)
+
+ReloadModule("lua/event-notifier", function()
+	require("lua/event-notifier").setup()
+end)
